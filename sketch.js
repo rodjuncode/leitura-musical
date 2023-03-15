@@ -14,6 +14,8 @@ let game = {
   current: -1,
 }
 
+let backgroundColor;
+
 function preload() {
   myFont = loadFont('assets/Ubuntu-Regular.ttf');
 }
@@ -22,12 +24,14 @@ function setup() {
 
   createAdaptiveCanvas(300,400);
   
+  backgroundColor = color(255);
   initGame();
 
 }
 
 function draw() {
-  background(255);
+  background(backgroundColor);
+  backgroundColor = color(255);
   drawPentagram();
   drawInterface();
   drawNotes();
@@ -54,7 +58,7 @@ function drawNotes() {
   for (let i = 0; i < game.notes.length; i++) {
     let noteHeight, noteDirUp, noteTransparency;
     if (game.guesses.length > i) {
-      noteTransparency = 150;
+      noteTransparency = 80;
     } else {
       noteTransparency = 255;
     }
@@ -240,7 +244,8 @@ function mouseClicked() {
 
   if (failed()) {
     game.guesses.pop();
-  }
+    backgroundColor = color('#ff96b8');
+  } 
 
   if (game.guesses.length == game.notes.length) {
     initGame();
